@@ -14,7 +14,7 @@ export default function AuthClient() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    if (!isSupabaseConfigured()) return;
+    if (!isSupabaseConfigured) return;
     supabase.auth.getUser().then(({ data }) => setUser(data.user ? { email: data.user.email || "" } : null));
     const { data: listener } = supabase.auth.onAuthStateChange((_event, session) => setUser(session?.user ? { email: session.user.email || "" } : null));
     return () => listener.subscription.unsubscribe();
